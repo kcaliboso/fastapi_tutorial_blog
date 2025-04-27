@@ -3,8 +3,8 @@ from app.database.models.post import Post
 from app.database.schemas.post import PostCreate, PostUpdate
 
 
-def get_posts(db: Session, limit: int):
-    return db.query(Post).limit(limit)
+def get_posts(db: Session, limit: int, offset: int):
+    return db.query(Post).limit(limit).offset(offset)
 
 
 def get_post(db: Session, post_id: int):
@@ -37,6 +37,7 @@ def update_post(db: Session, post_id: int, updated_post: PostUpdate):
         return db_post
     except:
         return None
+
 
 def delete_post(db: Session, post_id: int):
     try:

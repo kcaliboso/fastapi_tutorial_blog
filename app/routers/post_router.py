@@ -10,8 +10,8 @@ routes = APIRouter()
 
 # Get all posts
 @routes.get("/", response_model=APIResponse[Post])
-def index(db: Session = Depends(get_db), limit: int = 10):
-    db_posts = post_controller.get_posts(db=db, limit=limit)
+def index(db: Session = Depends(get_db), limit: int = 10, offset:int = 0):
+    db_posts = post_controller.get_posts(db=db, limit=limit, offset=offset)
     return APIResponse(status="success", status_code=status.HTTP_200_OK, message="Post List", data=db_posts)
 
 
