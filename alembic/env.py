@@ -5,8 +5,12 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.database.models import post
 from app.database.config import Base
+from app.database.models.post import Post
+from app.database.models.comment import Comment
+from app.database.models.user import User
+
+import os
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -16,6 +20,16 @@ config = context.config
 # This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+db_user = os.getenv("DB_USERNAME")
+db_password = os.getenv("DB_PASSWORD")
+db_host = os.getenv("DB_HOST")
+db_port = os.getenv("DB_PORT")
+db_name = os.getenv("DB_NAME")
+
+db_url = f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+
+config.set_main_option("sqlalchemy.url", db_url)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
