@@ -8,4 +8,3 @@ class APIResponse(BaseModel, Generic[T]):
     status_code: int
     message: str
     data: Optional[List[T] | T] = None
-    count: Optional[int] = None
